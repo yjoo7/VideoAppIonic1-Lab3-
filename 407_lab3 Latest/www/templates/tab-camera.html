@@ -1,0 +1,33 @@
+<ion-view view-title="Camera">
+  <ion-content>
+    <br>
+    <div class="bottom">
+      <div align="center">
+        <button style="float: none; width: 50%;" class="button button-royal button-large" ng-click="getPicture()">
+          Take Picture
+        </button>
+      </div>
+    </div>
+    <br>
+    <input type="file" value = "upload" accept="video/*" id="videoButton" align="center"/>
+    <br>
+    <div class="bottom">
+      <div align="center">
+        <button style="float: none; width: 50%;" class="button button-royal button-large" ng-click="getVideo()">
+          Get Video
+        </button>
+      </div>
+    </div>
+    <br><br><br>
+    <div class="bottom">
+      <div align="center">
+        <img class="col-90" ng-src="{{imageSrc}}" alt="picture" align="center">
+      </div>
+    </div>
+    <div class="bottom">
+      <div align="center">
+        <video ng-src="{{videoSrc}}" class="centerme" controls="controls"></video>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
