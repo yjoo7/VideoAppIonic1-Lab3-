@@ -1,6 +1,6 @@
 angular.module('starter.services', ['ngCordova'])
 
-.factory('sensors', function($cordovaDeviceMotion, $cordovaGeolocation, $cordovaDeviceOrientation, $cordovaCamera, $ionicLoading) {
+.factory('sensors', function($cordovaDeviceMotion, $cordovaGeolocation, $cordovaDeviceOrientation, $cordovaCamera, $ionicLoading, $VideoEditor, $VideoEditorOptions ) {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
@@ -158,6 +158,45 @@ angular.module('starter.services', ['ngCordova'])
         sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
         mediaType: Camera.MediaType.ALLMEDIA
       };
+
+      //Trim a video(videoSrc) - start //please test this on your phone You Wu!!!!!!
+      $VideoEditor.trim(
+        trimSuccess,
+        trimFail,{
+          fileUri: videoSrc,
+          trimStart: 5,
+          trimEnd:,
+          outputFileName: 'output-videoSrc', //is naming for fileUri and outputFileName right??????????????
+          progress: function(info){}
+        }
+      );
+      function trimSuccess(result) {
+        console.log('trimSuccess, result: ' + result);
+      }
+      function trimFail(err){
+        console.log('trimFail, err: ' + err);
+      }
+      //Trim a video(videoSrc) - end
+
+
+      //Create JPEG thumbnails from a video - start
+      $scope.createJPEG = function(videoTime){
+        VideoEditor.createThumbnail(
+          success, // success cb
+          error, // error cb
+          {
+            fileUri: videoSrc, // the path to the video on the device
+            outputFileName: videoSrc + videoTime, // the file name for the JPEG image
+            atTime: 2, // optional, location in the video to create the thumbnail (in seconds)
+            width: 320, // optional, width of the thumbnail
+            height: 480, // optional, height of the thumbnail
+            quality: 100 // optional, quality of the thumbnail (between 1 and 100)
+          }
+        );
+      }
+      //Create a factory to create a JPEG thumbnail from a video - end
+
+
 
       $scope.getVideo = function () {
         $cordovaCamera.getPicture($scope.videoOptions).then(function (URI) {
