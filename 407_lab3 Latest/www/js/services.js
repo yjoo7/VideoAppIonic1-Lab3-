@@ -165,7 +165,7 @@ angular.module('starter.services', ['ngCordova'])
         trimFail,{
           fileUri: videoSrc,
           trimStart: 5,
-          trimEnd:,
+          trimEnd:10,
           outputFileName: 'output-videoSrc', //is naming for fileUri and outputFileName right??????????????
           progress: function(info){}
         }
@@ -187,7 +187,7 @@ angular.module('starter.services', ['ngCordova'])
           {
             fileUri: videoSrc, // the path to the video on the device
             outputFileName: videoSrc + videoTime, // the file name for the JPEG image
-            atTime: 2, // optional, location in the video to create the thumbnail (in seconds)
+            atTime: videoTime, // optional, location in the video to create the thumbnail (in seconds)
             width: 320, // optional, width of the thumbnail
             height: 480, // optional, height of the thumbnail
             quality: 100 // optional, quality of the thumbnail (between 1 and 100)
@@ -206,6 +206,22 @@ angular.module('starter.services', ['ngCordova'])
           // error
         });
       }
+  //calling the for-loop function???????????????
+      $scope.stopmotion = function (){
+        var videoEnd = $scope.videoSrc.duration;
+        for(var time=0; time < videoEnd; time= time+10){
+          $scope.createJPEG(time);
+        }
+      }
+
+      //Video Info Options
+      $VideoEditor.getVideoInfo(
+        success,
+        error,
+        {
+          fileUri: 'videoSrc',
+        }
+      )//how to get the video info????? ???????????????????????????????????????
 
     }
   };
