@@ -1,6 +1,6 @@
 angular.module('starter.services', ['ngCordova'])
 
-.factory('sensors', function($cordovaDeviceMotion, $cordovaGeolocation, $cordovaDeviceOrientation, $cordovaCamera, $ionicLoading) {
+.factory('sensors', function($cordovaDeviceMotion, $cordovaGeolocation, $cordovaDeviceOrientation, $cordovaCamera, $ionicLoading, $VideoEditor) {
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
@@ -159,6 +159,45 @@ angular.module('starter.services', ['ngCordova'])
         mediaType: Camera.MediaType.ALLMEDIA
       };
 
+      //Trim a video(videoSrc) - start //please test this on your phone You Wu!!!!!!
+      $VideoEditor.trim(
+        trimSuccess,
+        trimFail,{
+          fileUri: videoSrc,
+          trimStart: 5,
+          trimEnd:10,
+          outputFileName: videoSrc + 1, //'output-videoSrc', //is naming for fileUri and outputFileName right??????????????
+          progress: function(info){}
+        }
+      );
+      function trimSuccess(result) {
+        console.log('trimSuccess, result: ' + result);
+      }
+      function trimFail(err){
+        console.log('trimFail, err: ' + err);
+      }
+      //Trim a video(videoSrc) - end
+
+
+      //Create JPEG thumbnails from a video - start
+      $scope.createJPEG = function(videoTime){
+        VideoEditor.createThumbnail(
+          success, // success cb
+          error, // error cb
+          {
+            fileUri: videoSrc, // the path to the video on the device
+            outputFileName: videoSrc + videoTime, // the file name for the JPEG image
+            atTime: videoTime, // optional, location in the video to create the thumbnail (in seconds)
+            width: 320, // optional, width of the thumbnail
+            height: 480, // optional, height of the thumbnail
+            quality: 100 // optional, quality of the thumbnail (between 1 and 100)
+          }
+        );
+      }
+      //Create a factory to create a JPEG thumbnail from a video - end
+
+
+
       $scope.getVideo = function () {
         $cordovaCamera.getPicture($scope.videoOptions).then(function (URI) {
           $scope.videoSrc = URI;
@@ -166,6 +205,39 @@ angular.module('starter.services', ['ngCordova'])
         }, function (err) {
           // error
         });
+      }
+      //calling the for-loop function???????????????
+      $scope.stopmotion = function(){
+        var videoEnd = $scope.videoSrc.duration;
+        for(var time=0; time < videoEnd; time= time+10){
+          $scope.createJPEG(time);
+        }
+      }
+
+      //Timelapse
+      $scope.timelapse = function(){
+
+      }
+
+      //Video Info Options
+      $VideoEditor.getVideoInfo(
+        success,
+        error,
+        {
+          fileUri: 'videoSrc',
+        }
+      );//how to get the video info????? ???????????????????????????????????????
+      function getVideoInfoSuccess(videoSrc) {
+        console.log('getVideoInfoSuccess, info: ' + JSON.stringify(info, null, 2));
+        // info is a JSON object with the following properties -
+        {
+          width: 1920,
+            height: 1080,
+            orientation; 'landscape', // will be portrait or landscape
+          //duration: 3.541, // duration in seconds
+            size: 6830126, // size of the video in bytes
+          bitrate: 15429777; // bitrate of the video in bits per second
+        }
       }
 
     }
