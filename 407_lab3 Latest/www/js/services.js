@@ -1,6 +1,10 @@
 angular.module('starter.services', ['ngCordova'])
 
+<<<<<<< HEAD
 .factory('sensors', function($cordovaDeviceMotion, $cordovaGeolocation, $cordovaDeviceOrientation, $cordovaCamera, $ionicLoading, $VideoEditor) {
+=======
+.factory('sensors', function($cordovaDeviceMotion, $cordovaGeolocation, $cordovaDeviceOrientation, $cordovaCamera, $ionicLoading, $VideoEditor, $VideoEditorOptions ) {
+>>>>>>> 9f822ce844d2c12ff7cb171556dfdbcecc52f6db
   // Might use a resource here that returns a JSON array
 
   // Some fake testing data
@@ -166,7 +170,11 @@ angular.module('starter.services', ['ngCordova'])
           fileUri: videoSrc,
           trimStart: 5,
           trimEnd:10,
+<<<<<<< HEAD
           outputFileName: videoSrc + 1, //'output-videoSrc', //is naming for fileUri and outputFileName right??????????????
+=======
+          outputFileName: 'output-videoSrc', //is naming for fileUri and outputFileName right??????????????
+>>>>>>> 9f822ce844d2c12ff7cb171556dfdbcecc52f6db
           progress: function(info){}
         }
       );
@@ -206,19 +214,27 @@ angular.module('starter.services', ['ngCordova'])
           // error
         });
       }
+<<<<<<< HEAD
       //calling the for-loop function???????????????
       $scope.stopmotion = function(){
+=======
+  //calling the for-loop function???????????????
+      $scope.stopmotion = function (){
+>>>>>>> 9f822ce844d2c12ff7cb171556dfdbcecc52f6db
         var videoEnd = $scope.videoSrc.duration;
         for(var time=0; time < videoEnd; time= time+10){
           $scope.createJPEG(time);
         }
       }
 
+<<<<<<< HEAD
       //Timelapse
       $scope.timelapse = function(){
 
       }
 
+=======
+>>>>>>> 9f822ce844d2c12ff7cb171556dfdbcecc52f6db
       //Video Info Options
       $VideoEditor.getVideoInfo(
         success,
@@ -226,6 +242,7 @@ angular.module('starter.services', ['ngCordova'])
         {
           fileUri: 'videoSrc',
         }
+<<<<<<< HEAD
       );//how to get the video info????? ???????????????????????????????????????
       function getVideoInfoSuccess(videoSrc) {
         console.log('getVideoInfoSuccess, info: ' + JSON.stringify(info, null, 2));
@@ -239,6 +256,9 @@ angular.module('starter.services', ['ngCordova'])
           bitrate: 15429777; // bitrate of the video in bits per second
         }
       }
+=======
+      )//how to get the video info????? ???????????????????????????????????????
+>>>>>>> 9f822ce844d2c12ff7cb171556dfdbcecc52f6db
 
     }
   };
