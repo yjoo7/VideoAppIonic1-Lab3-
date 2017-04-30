@@ -1,12 +1,9 @@
 angular.module('starter.services', ['ngCordova'])
 
 
-.factory('sensors', function($cordovaDeviceMotion, $cordovaGeolocation, $cordovaDeviceOrientation, $cordovaCamera, $ionicLoading, $VideoEditor, $VideoEditorOptions ) {
-
+.factory('sensors', function($cordovaDeviceMotion, $cordovaGeolocation, $cordovaDeviceOrientation, $cordovaCamera, $ionicLoading, $VideoEditor) {
     // Might use a resource here that returns a JSON array
-
     // Some fake testing data
-
     return {
       accelerometer: function ($scope) {
         // watch Acceleration options
@@ -160,6 +157,7 @@ angular.module('starter.services', ['ngCordova'])
           sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
           mediaType: Camera.MediaType.ALLMEDIA
         };
+
         $scope.getVideo = function () {
           $cordovaCamera.getPicture($scope.videoOptions).then(function (URI) {
             $scope.videoSrc = URI;
@@ -169,25 +167,26 @@ angular.module('starter.services', ['ngCordova'])
           });
         }
         //Trim a video(videoSrc) - start //please test this on your phone You Wu!!!!!!
-        $VideoEditor.trim(
-          trimSuccess,
-          trimFail, {
-            fileUri: videoSrc,
-            trimStart: 5,
-            trimEnd: 10,
-            outputFileName: 'output-videoSrc', //is naming for fileUri and outputFileName right??????????????
-
-            progress: function (info) {
-            }
+        $scope.trimVideo = function (){
+          $VideoEditor.trim(
+              trimSuccess,
+              trimFail,
+              {
+                fileUri: $scope.videoSrc,
+                trimStart: 5,
+                trimEnd: 10,
+                outputFileName: "output-name", //is naming for fileUri and outputFileName right??????????????
+              }
+            );
           }
-        );
-        function trimSuccess(result) {
-          console.log('trimSuccess, result: ' + result);
-        }
+          function trimSuccess(result) {
+            console.log('trimSuccess, result: ' + result);
+          }
+          function trimFail(err) {
+            console.log('trimFail, err: ' + err);
+          }
 
-        function trimFail(err) {
-          console.log('trimFail, err: ' + err);
-        }
+
 
         //Trim a video(videoSrc) - end
 
@@ -209,15 +208,6 @@ angular.module('starter.services', ['ngCordova'])
         }
         //Create a factory to create a JPEG thumbnail from a video - end
 
-
-        $scope.getVideo = function () {
-          $cordovaCamera.getPicture($scope.videoOptions).then(function (URI) {
-            $scope.videoSrc = URI;
-            console.log('videoFile URI: ' + URI);
-          }, function (err) {
-            // error
-          });
-        }
 
         //calling the for-loop function???????????????
         $scope.stopmotion = function () {
