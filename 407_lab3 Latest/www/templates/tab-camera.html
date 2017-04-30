@@ -27,13 +27,17 @@
     <div class="bottom">
       <div align="center">
         //videoSrc is the compiled video file to play with. Can use with a plugin
-        <video ng-src="{{videoSrc}}" class="centerme" controls="controls"></video>
+        <video ng-src="{{videoSrc}}" class="centerme" controls="controls" width="100%" height="auto"></video>
       </div>
     </div>
+
+
     <div class="bottom">
       <div align="center">
         //videoSrc is the compiled video file to play with. Can use with a plugin
-        <button  class="button button-royal button-large" ng-click="stopmotion()"></button>
+        <button  class="button button-royal button-large" ng-click="stopmotion()">
+          Stop Motion
+        </button>
       </div>
     </div>
 

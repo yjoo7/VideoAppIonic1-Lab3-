@@ -158,7 +158,14 @@ angular.module('starter.services', ['ngCordova'])
         sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
         mediaType: Camera.MediaType.ALLMEDIA
       };
-
+      $scope.getVideo = function () {
+        $cordovaCamera.getPicture($scope.videoOptions).then(function (URI) {
+          $scope.videoSrc = URI;
+          console.log('videoFile URI: '+URI);
+        }, function (err) {
+          // error
+        });
+      }
       //Trim a video(videoSrc) - start //please test this on your phone You Wu!!!!!!
       $VideoEditor.trim(
         trimSuccess,
@@ -198,14 +205,7 @@ angular.module('starter.services', ['ngCordova'])
 
 
 
-      $scope.getVideo = function () {
-        $cordovaCamera.getPicture($scope.videoOptions).then(function (URI) {
-          $scope.videoSrc = URI;
-          console.log('videoFile URI: '+URI);
-        }, function (err) {
-          // error
-        });
-      }
+
   //calling the for-loop function???????????????
       $scope.stopmotion = function (){
         var videoEnd = $scope.videoSrc.duration;
