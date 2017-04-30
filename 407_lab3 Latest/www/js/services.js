@@ -166,6 +166,7 @@ angular.module('starter.services', ['ngCordova'])
             // error
           });
         }
+
         //Trim a video(videoSrc) - start //please test this on your phone You Wu!!!!!!
         $scope.trimVideo = function (){
           $VideoEditor.trim(
@@ -185,50 +186,56 @@ angular.module('starter.services', ['ngCordova'])
           function trimFail(err) {
             console.log('trimFail, err: ' + err);
           }
-
-
-
         //Trim a video(videoSrc) - end
 
+        //calling the for-loop function???????????????
+        $scope.stopmotion = function () {
+          var videoEnd = $scope.videoSrc.duration;
+          for (var time = 0; time < videoEnd; time = time + 10) {
+            createJPEG(time); //?????????????????? We're not sure how to connect this with createJPEG method
+            //We want to createJPEG for each time and be able to connect the JPEG files to make them into a video
+          }
+        }
 
         //Create JPEG thumbnails from a video - start
-        $scope.createJPEG = function (videoTime) {
+        function createJPEG(){
           VideoEditor.createThumbnail(
-            success, // success cb
-            error, // error cb
+            thumbnailSuccess, // success cb
+            thumbnailError, // error cb
             {
-              fileUri: videoSrc, // the path to the video on the device
-              outputFileName: videoSrc + videoTime, // the file name for the JPEG image
-              atTime: videoTime, // optional, location in the video to create the thumbnail (in seconds)
+              fileUri: $scope.videoSrc, // the path to the video on the device
+              outputFileName: 'output-name', // the file name for the JPEG image
+              atTime: 2, // optional, location in the video to create the thumbnail (in seconds)
               width: 320, // optional, width of the thumbnail
               height: 480, // optional, height of the thumbnail
               quality: 100 // optional, quality of the thumbnail (between 1 and 100)
             }
           );
         }
+        function thumbnailSuccess(){
+          console.log('thumbnailSuccess, result: ' + result);
+        }
+        function thumbnailError(){
+          console.log('thumbnailError, err: ' + err);
+        }
         //Create a factory to create a JPEG thumbnail from a video - end
 
 
-        //calling the for-loop function???????????????
-        $scope.stopmotion = function () {
-          var videoEnd = $scope.videoSrc.duration;
-          for (var time = 0; time < videoEnd; time = time + 10) {
-            $scope.createJPEG(time);
-          }
-        }
+
 
         //Video Info Options
         $VideoEditor.getVideoInfo(
-          success,
-          error,
+          getVideoInfoSuccess,
+          getVideoInfoError,
           {
-            fileUri: 'videoSrc',
+            fileUri: $scope.videoSrc,
           }
         );//how to get the video info????? ???????????????????????????????????????
-        function getVideoInfoSuccess(videoSrc) {
+        function getVideoInfoSuccess(info) {
           console.log('getVideoInfoSuccess, info: ' + JSON.stringify(info, null, 2));
-          // info is a JSON object with the following properties -
-
+        }
+        function getVideoInfoError(){
+          console.log('getVideoInfoError, error: ' + error);
         }
       }
     }
