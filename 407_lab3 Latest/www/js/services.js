@@ -1,267 +1,277 @@
 angular.module('starter.services', ['ngCordova'])
 
-.factory('sensors', function($cordovaDeviceMotion, $cordovaGeolocation, $cordovaDeviceOrientation, $cordovaCamera, $ionicLoading) {
-  // Might use a resource here that returns a JSON array
+  .factory('sensors', function($cordovaDeviceMotion, $cordovaGeolocation, $cordovaDeviceOrientation, $cordovaCamera, $ionicLoading) {
+    // Might use a resource here that returns a JSON array
 
-  // Some fake testing data
+    // Some fake testing data
 
-  return {
-    accelerometer: function($scope) {
-      // watch Acceleration options
-      $scope.options = {
-        frequency: 100, // Measure every 100ms
-        deviation : 25  // We'll use deviation to determine the shake event, best values in the range between 25 and 30
-      };
+    return {
+      accelerometer: function($scope) {
+        // watch Acceleration options
+        $scope.options = {
+          frequency: 100, // Measure every 100ms
+          deviation : 25  // We'll use deviation to determine the shake event, best values in the range between 25 and 30
+        };
 
-      // Current measurements
-      $scope.measurements = {
-        x : null,
-        y : null,
-        z : null,
-        timestamp : null
-      };
+        // Current measurements
+        $scope.measurements = {
+          x : null,
+          y : null,
+          z : null,
+          timestamp : null
+        };
 
-      // Previous measurements
-      $scope.previousMeasurements = {
-        x : null,
-        y : null,
-        z : null,
-        timestamp : null
-      };
-      $scope.startWatchingAccel = function() {
+        // Previous measurements
+        $scope.previousMeasurements = {
+          x : null,
+          y : null,
+          z : null,
+          timestamp : null
+        };
+        $scope.startWatchingAccel = function() {
 
-        // Device motion configuration
-        $scope.watch = $cordovaDeviceMotion.watchAcceleration($scope.options);
+          // Device motion configuration
+          $scope.watch = $cordovaDeviceMotion.watchAcceleration($scope.options);
 
-        // Device motion initilaization
-        $scope.watch.then(null, function(error) {
-          console.log('Error');
-        },function(result) {
+          // Device motion initilaization
+          $scope.watch.then(null, function(error) {
+            console.log('Error');
+          },function(result) {
 
-          // Set current data
-          $scope.measurements.x = result.x;
-          $scope.measurements.y = result.y;
-          $scope.measurements.z = result.z;
-          $scope.measurements.timestamp = result.timestamp;
+            // Set current data
+            $scope.measurements.x = result.x;
+            $scope.measurements.y = result.y;
+            $scope.measurements.z = result.z;
+            $scope.measurements.timestamp = result.timestamp;
 
-          // Detecta shake
-          //$scope.detectShake(result);
+            // Detecta shake
+            //$scope.detectShake(result);
 
-        });
-      };
-    },
-    gps: function($scope) {
-      // watch GPS options
-      $scope.options = {
-        timeout : 5000,
-        maximumAge: 3000,
-        enableHighAccuracy: false // may cause errors if true
-      };
-
-      // Current measurements
-      $scope.measurements = {
-        lat : null,
-        long : null
-      };
-
-      $scope.pollGPSLocation = function() {
-        $cordovaGeolocation.getCurrentPosition($scope.options)
-          .then(function (position) {
-
-            $scope.measurements.lat = position.coords.latitude;
-            $scope.measurements.long = position.coords.longitude;
-            //$ionicLoading.show({ template: 'GPS Result', noBackdrop: true, duration: 1000 });
-          }, function(err) {
-            // error
-            console.log("polling error", err);
           });
+        };
+      },
+      gps: function($scope) {
+        // watch GPS options
+        $scope.options = {
+          timeout : 5000,
+          maximumAge: 3000,
+          enableHighAccuracy: false // may cause errors if true
+        };
 
-        setTimeout($scope.pollGPSLocation, 3000);
-      };
+        // Current measurements
+        $scope.measurements = {
+          lat : null,
+          long : null
+        };
 
-      $scope.startWatchingGPS = function() {
+        $scope.pollGPSLocation = function() {
+          $cordovaGeolocation.getCurrentPosition($scope.options)
+            .then(function (position) {
 
-        // Device motion configuration
-        $scope.watch = $cordovaGeolocation.watchPosition($scope.options);
+              $scope.measurements.lat = position.coords.latitude;
+              $scope.measurements.long = position.coords.longitude;
+              //$ionicLoading.show({ template: 'GPS Result', noBackdrop: true, duration: 1000 });
+            }, function(err) {
+              // error
+              console.log("polling error", err);
+            });
 
-        // Device motion initilaization
-        $scope.watch.then(null, function(error) {
-          console.log('Error');
-        },function(result) {
+          setTimeout($scope.pollGPSLocation, 3000);
+        };
 
-          // Set current data
-          $scope.measurements.lat = result.coords.latitude;
-          $scope.measurements.long = result.coords.longitude;
+        $scope.startWatchingGPS = function() {
 
-        });
-      };
-    },
-    compass: function($scope) {
-      // watch GPS options
-      $scope.options = {
-        frequency: 3000,
-        filter: true     // if frequency is set, filter is ignored
-      };
+          // Device motion configuration
+          $scope.watch = $cordovaGeolocation.watchPosition($scope.options);
 
-      // Current measurements
-      $scope.measurements = {
-        magneticHeading : null,
-        trueHeading : null,
-        headingAccuracy: null,
-        timestamp: null
-      };
+          // Device motion initilaization
+          $scope.watch.then(null, function(error) {
+            console.log('Error');
+          },function(result) {
 
-      $scope.startWatchingCompass = function() {
+            // Set current data
+            $scope.measurements.lat = result.coords.latitude;
+            $scope.measurements.long = result.coords.longitude;
 
-        // Device motion configuration
-        $scope.watch = $cordovaDeviceOrientation.watchHeading($scope.options);
+          });
+        };
+      },
+      compass: function($scope) {
+        // watch GPS options
+        $scope.options = {
+          frequency: 3000,
+          filter: true     // if frequency is set, filter is ignored
+        };
 
-        // Device motion initilaization
-        $scope.watch.then(null, function(error) {
-          console.log('Error');
-        },function(result) {
+        // Current measurements
+        $scope.measurements = {
+          magneticHeading : null,
+          trueHeading : null,
+          headingAccuracy: null,
+          timestamp: null
+        };
 
-          // Set current data
-          $scope.measurements.magneticHeading = result.magneticHeading;
-          $scope.measurements.trueHeading = result.trueHeading;
-          $scope.measurements.headingAccuracy = result.headingAccuracy;
-          $scope.measurements.timeStamp = result.timestamp;
+        $scope.startWatchingCompass = function() {
 
-        });
-      };
-    },
-    camera: function($scope) {
-      // various camera options
-      $scope.options = {
-        quality: 50,
-        destinationType: Camera.DestinationType.FILE_URI,
-        sourceType: Camera.PictureSourceType.CAMERA,
-        allowEdit: true,
-        encodingType: Camera.EncodingType.JPEG,
-        targetWidth: 500,
-        targetHeight: 500,
-        popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: false,
-        correctOrientation: true
-      };
+          // Device motion configuration
+          $scope.watch = $cordovaDeviceOrientation.watchHeading($scope.options);
 
-      $scope.getPicture = function () {
-        $cordovaCamera.getPicture($scope.options).then(function (imageURI) {
-          $scope.imageSrc = imageURI;
-        }, function (err) {
-          // error
-        });
-      };
+          // Device motion initilaization
+          $scope.watch.then(null, function(error) {
+            console.log('Error');
+          },function(result) {
 
-      $scope.videoOptions = {
-        destinationType: Camera.DestinationType.FILE_URI,
-        sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
-        mediaType: Camera.MediaType.ALLMEDIA
-      };
+            // Set current data
+            $scope.measurements.magneticHeading = result.magneticHeading;
+            $scope.measurements.trueHeading = result.trueHeading;
+            $scope.measurements.headingAccuracy = result.headingAccuracy;
+            $scope.measurements.timeStamp = result.timestamp;
 
-      $scope.getVideo = function () {
-        $cordovaCamera.getPicture($scope.videoOptions).then(function (URI) {
-          $scope.videoSrc = URI;
-          console.log('videoFile URI: '+URI);
-        }, function (err) {
-          // error
-        });
-      }
+          });
+        };
+      },
+      camera: function($scope) {
+        // various camera options
+        $scope.options = {
+          quality: 50,
+          destinationType: Camera.DestinationType.FILE_URI,
+          sourceType: Camera.PictureSourceType.CAMERA,
+          allowEdit: true,
+          encodingType: Camera.EncodingType.JPEG,
+          targetWidth: 500,
+          targetHeight: 500,
+          popoverOptions: CameraPopoverOptions,
+          saveToPhotoAlbum: false,
+          correctOrientation: true
+        };
 
-      function makeid()
-      {
-        var text = "";
-        var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
-        for( var i=0; i < 32; i++ )
-          text += possible.charAt(Math.floor(Math.random() * possible.length));
+        $scope.getPicture = function () {
+          $cordovaCamera.getPicture($scope.options).then(function (imageURI) {
+            $scope.imageSrc = imageURI;
+          }, function (err) {
+            // error
+          });
+        };
 
-        return text;
-      }
+        $scope.videoOptions = {
+          destinationType: Camera.DestinationType.FILE_URI,
+          sourceType: Camera.PictureSourceType.SAVEDPHOTOALBUM,
+          mediaType: Camera.MediaType.ALLMEDIA
+        };
 
-      $scope.trim = function (){
-        var videoName = makeid();
-        VideoEditor.trim(
-          trimSuccess,
-          trimFail,
-          {
-            fileUri: $scope.videoSrc, // path to input video
-            trimStart: 5, // time to start trimming in seconds
-            trimEnd: 15, // time to end trimming in seconds
-            outputFileName: videoName +'.MOV', // output file name
-            progress: function(info) {} // optional, see docs on progress
+        $scope.getVideo = function () {
+          $cordovaCamera.getPicture($scope.videoOptions).then(function (URI) {
+            $scope.videoSrc = URI;
+            console.log('videoFile URI: '+URI);
+          }, function (err) {
+            // error
+          });
+        }
+
+        function makeid()
+        {
+          var text = "";
+          var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+          for( var i=0; i < 5; i++ )
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+          return text;
+        }
+
+        $scope.trim = function (){
+          var videoName = makeid();
+          VideoEditor.trim(
+            trimSuccess,
+            trimFail,
+            {
+              fileUri: $scope.videoSrc, // path to input video
+              trimStart: 3, // time to start trimming in seconds
+              trimEnd: 8, // time to end trimming in seconds
+              outputFileName: videoName+'.MOV', // output file name
+              progress: function(info) {} // optional, see docs on progress
+            }
+          );
+
+          function trimSuccess(result) {
+            // result is the path to the trimmed video on the device
+            console.log('trimSuccess, result: ' + result);
+            //$scope.trimmedVideoPath = 'file://'+result;
+            $scope.videoSrc = 'file://'+result;
+            $scope.$apply();
+            //$ionicLoading.show({template: 'Trim Success', noBackdrop: true, duration: 1000});
           }
-        );
 
-        function trimSuccess(result) {
-          // result is the path to the trimmed video on the device
-          console.log('trimSuccess, result: ' + result);
-          $scope.videoSrc2 = 'file://'+ result;
-          $scope.$apply();
-          $ionicLoading.show({template: 'Trim Success', noBackdrop: true, duration: 1000});
-        }
-
-        function trimFail(err) {
-          console.log('trimFail, err: ' + err);
-          $ionicLoading.show({template: 'Trim Fail', noBackdrop: true, duration: 1000});
-        }
-      }
-
-      $scope.stopmotion = function () {
-        $scope.getVideoInfo();
-        var videoDuration = $scope.videoInfoJSON.duration;
-        //var videoEnd = $scope.videoSrc;
-        var thumbnailIncrement = videoDuration / 10;
-        for (var time = 0; time < videoDuration; time = time + thumbnailIncrement) {
-          createJPEG(time);
-        }
-      }
-
-      //Create JPEG thumbnails from a video - start
-      function createJPEG(time){
-        var jpegName = makeid();
-        VideoEditor.createThumbnail(
-          thumbnailSuccess, // success cb
-          thumbnailError, // error cb
-          {
-            fileUri: $scope.videoSrc2, // the path to the video on the device
-            outputFileName: jpegName + '.jpeg', // the file name for the JPEG image
-            atTime: time, // optional, location in the video to create the thumbnail (in seconds)
-           /* width: 320, // optional, width of the thumbnail
-            height: 480, // optional, height of the thumbnail*/
-            quality: 100 // optional, quality of the thumbnail (between 1 and 100)
+          function trimFail(err) {
+            console.log('trimFail, err: ' + err);
+            //$ionicLoading.show({template: 'Trim Fail', noBackdrop: true, duration: 1000});
           }
-        );
-      }
-      function thumbnailSuccess(){
-        console.log('thumbnailSuccess, result: ' + result);
-        $scope.imageSrc = 'file://' + result;
-        //$ionicLoading.show({template: 'Stop Motion Success', noBackdrop: true, duration: 1000});
+        }
 
-      }
-      function thumbnailError(){
-        console.log('thumbnailError, err: ' + err);
-        //$ionicLoading.show({template: 'Stop Motion Fail', noBackdrop: true, duration: 1000});
-      }
-      //Create a factory to create a JPEG thumbnail from a video - end
-
-
-
-      $scope.getvideoinfo = function (){
-        VideoEditor.getVideoInfo(
-          success, // success cb
-          error, // error cb
-          {
-            fileUri: $scope.videoSrc, // the path to the video on the device
+        $scope.stopmotion = function () {
+          $scope.getvideoinfo();
+          var videoDuration = $scope.videoInfoJSON.duration;
+          var thumbnailIncrement = videoDuration / 10;
+          $scope.videoThumbnails = {};
+          for (var time = 0; time < videoDuration; time = time + thumbnailIncrement) {
+            $scope.createJPEG(time); //?????????????????? We're not sure how to connect this with createJPEG method
+            //We want to createJPEG for each time and be able to connect the JPEG files to make them into a video
           }
-        );
-        function success(result){
-          console.log('getVideoInfo, result: ' + JSON.stringify(result, null, 2));
-          $scope.videoInfoJSON = result;
         }
-        function error(err){
-          console.log('getVideoInfo, err: ' + err);
+
+        $scope.accessThumbnails = function () {
+
+          for (var thumbnailNumber = 0;
+               thumbnailNumber < $scope.videoThumbnails['numberOfThumbnails'];
+               thumbnailNumber = thumbnailNumber + 1) {
+            var thumbnailImageSrc = $scope.videoThumbnails[thumbnailNumber];
+          }
+        }
+
+        //Create JPEG thumbnails from a video - start
+        $scope.createJPEG = function createJPEG(time){
+          var jpegName = makeid();
+          VideoEditor.createThumbnail(
+            thumbnailSuccess, // success cb
+            thumbnailError, // error cb
+            {
+              fileUri: $scope.videoSrc, // the path to the video on the device
+              outputFileName: jpegName+'.jpeg', // the file name for the JPEG image
+              atTime: time, // optional, location in the video to create the thumbnail (in seconds)
+              /* width: 320, // optional, width of the thumbnail
+               height: 480, // optional, height of the thumbnail */
+              quality: 100 // optional, quality of the thumbnail (between 1 and 100)
+            }
+          );
+          function thumbnailSuccess(result){
+            console.log('thumbnailSuccess, result: ' + result);
+            $scope.imageSrc = 'file://'+result;
+            $scope.videoThumbnails[time] = 'file://'+result;
+          }
+          function thumbnailError(err){
+            console.log('thumbnailError, err: ' + err);
+          }
+        }
+        //Create a factory to create a JPEG thumbnail from a video - end
+
+
+
+        $scope.getvideoinfo = function (){
+          VideoEditor.getVideoInfo(
+            success, // success cb
+            error, // error cb
+            {
+              fileUri: $scope.videoSrc, // the path to the video on the device
+            }
+          );
+          function success(result){
+            console.log('getVideoInfo, result: ' + JSON.stringify(result, null, 2));
+            $scope.videoInfoJSON = result;
+          }
+          function error(err){
+            console.log('getVideoInfo, err: ' + err);
+          }
         }
       }
-    }
-  };
-});
+    };
+  });
