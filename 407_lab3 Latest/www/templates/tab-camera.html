@@ -9,7 +9,6 @@
       </div>
     </div>
     <br>
-    <input type="file" value = "upload" accept="video/*" id="videoButton" align="center"/>
     <br>
     <div class="bottom">
       <div align="center">
@@ -29,17 +28,21 @@
         <video ng-src="{{videoSrc}}" class="centerme" controls="controls" width="100%" height="auto"></video>
       </div>
     </div>
-
-
-
-    <br>
     <div class="bottom">
       <div align="center">
-        <button style="float: none; width: 50%;" class="button button-royal button-large" ng-click="trimVideo()">
-          Trim Video
+        <button  class="button button-royal button-large" ng-click="trim()">
+          Trim
         </button>
       </div>
     </div>
+    <br>
+    <br>
+    <div class="bottom">
+      <div align="center">
+        <video ng-src="{{videoSrc2}}" class="centerme" controls="controls" width="100%" height="auto"></video>
+      </div>
+    </div>
+    <br>
     <br>
     <div class="bottom">
       <div align="center">
@@ -48,6 +51,14 @@
         </button>
       </div>
     </div>
-
+    <br>
+    <br>
+    <div class="bottom">
+      <div align="center">
+        <button  class="button button-royal button-large" ng-click="getvideoinfo()">
+          GetVideoInfo
+        </button>
+      </div>
+    </div>
   </ion-content>
 </ion-view>
