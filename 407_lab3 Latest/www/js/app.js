@@ -50,15 +50,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     }
   })
 
-  .state('tab.accelerometer', {
-      url: '/accelerometer',
-      views: {
-        'tab-accelerometer': {
-          templateUrl: 'templates/tab-accelerometer.html',
-          controller: 'AccelerometerCtrl'
-        }
-      }
-    })
+//  .state('tab.accelerometer', {
+//      url: '/accelerometer',
+//      views: {
+//        'tab-accelerometer': {
+//          templateUrl: 'templates/tab-accelerometer.html',
+//          controller: 'AccelerometerCtrl'
+//        }
+//      }
+//    })
     .state('tab.camera', {
       url: '/camera',
       views: {
@@ -69,25 +69,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
 
-    .state('tab.compass', {
-      url: '/compass',
-      views: {
-        'tab-compass': {
-          templateUrl: 'templates/tab-compass.html',
-          controller: 'CompassCtrl'
-        }
-      }
-    })
-
-  .state('tab.gps', {
-    url: '/gps',
-    views: {
-      'tab-gps': {
-        templateUrl: 'templates/tab-gps.html',
-        controller: 'GPSCtrl'
-      }
-    }
-  });
+//    .state('tab.compass', {
+//      url: '/compass',
+//      views: {
+//        'tab-compass': {
+//          templateUrl: 'templates/tab-compass.html',
+//          controller: 'CompassCtrl'
+//        }
+//      }
+//    })
+//
+//  .state('tab.gps', {
+//    url: '/gps',
+//    views: {
+//      'tab-gps': {
+//        templateUrl: 'templates/tab-gps.html',
+//        controller: 'GPSCtrl'
+//      }
+//    }
+//  })
+  ;
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
