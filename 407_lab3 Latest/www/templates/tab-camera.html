@@ -1,6 +1,8 @@
 <ion-view view-title="Camera">
   <ion-content>
     <br>
+
+    <!-- Does not support videos remove later -->
     <div class="bottom">
       <div align="center">
         <button style="float: none; width: 50%;" class="button button-royal button-large" ng-click="getPicture()">
@@ -18,14 +20,30 @@
       </div>
     </div>
     <br><br><br>
+    <!-- just a picture remove later -->
     <div class="bottom">
       <div align="center">
         <img class="col-90" ng-src="{{imageSrc}}" alt="picture" align="center">
       </div>
     </div>
+    <!-- show the selected video -->
     <div class="bottom">
       <div align="center">
         <video ng-src="{{videoSrc}}" class="centerme" controls="controls" width="100%" height="auto"></video>
+      </div>
+
+
+      <!-- please dear god I want this to work but it is not. Its not me. Even hardcoding doesn't work -->
+      <div>
+      <label> start trim at :
+        <input type="number" class="centerme" name="startInput" ng-model="trimTimes.startInput" min="0"  placeholder="start time">
+      </label>
+    </div>
+      <div>
+        <label> end trim at :
+          <input type="number" class="centerme" name="endInput" ng-model="trimTimes.endInput" max = {{$scope.videoInfoJSON.duration }} placeholder="end time">
+
+        </label>
       </div>
     </div>
     <div class="bottom">
@@ -36,10 +54,12 @@
       </div>
     </div>
     <br>
+
+    <!-- show the trimmed video here -->
     <br>
     <div class="bottom">
       <div align="center">
-        <video ng-src="{{videoSrc2}}" class="centerme" controls="controls" width="100%" height="auto"></video>
+        <video ng-src="{{trimmedVideoPath}}" class="centerme" controls="controls" width="100%" height="auto"></video>
       </div>
     </div>
     <br>
@@ -59,6 +79,17 @@
           GetVideoInfo
         </button>
       </div>
+    </div>
+
+    <!-- the save button -->
+    <div>
+    <div class="bottom">
+      <div align="center">
+        <button  class="button button-royal button-large" ng-click="saveChanges()">
+          SAVE CHANGES
+        </button>
+      </div>
+    </div>
     </div>
   </ion-content>
 </ion-view>
