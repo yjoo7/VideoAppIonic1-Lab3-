@@ -12,7 +12,7 @@ body {
 .appButton:active{
     opacity: 0.8;
     filter:alpha(opactiy=80);
-
+s
 }
 
 .padding {
@@ -24,6 +24,7 @@ body {
     color:white;
 }
 .movie{
+    align:center;
     color:white;
     border-radius: 90%;
 }

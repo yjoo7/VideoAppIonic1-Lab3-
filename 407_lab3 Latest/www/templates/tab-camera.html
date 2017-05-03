@@ -10,7 +10,7 @@
           <div class="text">Take Picture</div>
         </input>
       </div>
-      <div style="float:right">
+      <div style="float:left">
         <input type="image" class="appButton" src="img/VideoButton.png" ng-click="getVideo()">
 
         <div class="text">Get Video</div>
@@ -37,12 +37,12 @@
 
 
       <!-- Yay for functionality! -->
-      <div>
+      <div align="center">
       <label class="movie"> start trim at :
         <input type="number" class="centerme" name="startInput" ng-model="trimTimes.startInput" min="0"  placeholder="start time">
       </label>
     </div>
-      <div>
+      <div align="center">
         <label class="movie"> end trim at :
           <input type="number" class="centerme" name="endInput" ng-model="trimTimes.endInput" max = {{$scope.videoInfoJSON.duration }} placeholder="end time">
 
