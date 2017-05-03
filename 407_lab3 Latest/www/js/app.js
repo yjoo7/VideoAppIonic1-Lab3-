@@ -20,6 +20,23 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+  console.log('trying to request authorizaion')
+    		cordova.plugins.photoLibrary.requestAuthorization(
+          function () {
+            console.log('success')
+            // User gave us permission to his library, retry reading it!
+          },
+          function (err) {
+          console.log('error')
+            // User denied the access
+          }, // if options not provided, defaults to {read: true}.
+          {
+            read: true,
+            write: true
+          }
+        );
+
   });
 })
 
@@ -93,7 +110,23 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/dash');
 
-}).run(function($ionicPlatform, $rootScope, $ionicHistory) {
+
+})
+  .config([
+    '$compileProvider',
+    function ($compileProvider) {
+		$compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|cdvphotolibrary):/);
+		console.log('in config')
+		console.log($compileProvider)
+
+		//Angular 1.2 and above has two sanitization methods, one for links (aHrefSanitizationWhitelist) and
+		//one for images (imgSrcSanitizationWhitelist). Versions prior to 1.2 use $compileProvider.urlSanitizationWhitelist(...)
+    }
+  ])
+  .config(function($sceDelegateProvider) {
+    $sceDelegateProvider.resourceUrlWhitelist(['**']);
+  })
+.run(function($ionicPlatform, $rootScope, $ionicHistory) {
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
     $ionicHistory.clearCache();
   });

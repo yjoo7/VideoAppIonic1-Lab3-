@@ -27,6 +27,9 @@
   <plugin name="cordova-plugin-statusbar" spec="~2.2.2"/>
   <plugin name="ionic-plugin-keyboard" spec="~2.2.1"/>
   <plugin name="cordova-plugin-video-editor" spec="~1.1.2"/>
+  <plugin name="cordova-plugin-photo-library" spec="~2.0.4">
+    <variable name="PHOTO_LIBRARY_USAGE_DESCRIPTION" value="To choose photos"/>
+  </plugin>
   <platform name="ios">
     <icon height="57" src="resources/ios/icon/icon.png" width="57"/>
     <icon height="114" src="resources/ios/icon/icon@2x.png" width="114"/>

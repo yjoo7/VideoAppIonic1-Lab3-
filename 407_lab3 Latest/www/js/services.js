@@ -214,11 +214,21 @@ angular.module('starter.services', ['ngCordova'])
         }
 
         $scope.saveChanges = function() {
-        $cordovaFile.writeFile($scope.trimmedVideoPath,outputFileName, $scope.result , true)
-
-        console.log("saved to ==> " + $scope.trimmedVideoPath)
+        //$cordovaFile.writeFile($scope.trimmedVideoPath,outputFileName, $scope.result , true)
+        console.log("entering saveChanges: outputFileName: " + $scope.trimmedVideoPath + " basefilename " + $scope.result);
+        var url = $scope.trimmedVideoPath
+        var album = 'Vidi'
+        cordova.plugins.photoLibrary.saveVideo(url, album, function () {
+          console.log('save success')
+        }, function (err) {
+          console.log('save error')
+          console.log(err)
+        });
+        //console.log("saved to ==> " + $scope.trimmedVideoPath)
         $ionicLoading.show({template: 'Save??', noBackdrop: true, duration: 1000}); // this never shows
         }
+
+
 
 
 
