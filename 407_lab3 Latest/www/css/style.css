@@ -1,6 +1,6 @@
 /* Empty. Add your own CSS if you like */
 body {
-    background-color: aliceblue;
+
 }
 
 .appButton {
@@ -15,3 +15,15 @@ body {
 
 }
 
+.padding {
+
+    background-image: url("bubblerotate.png");
+
+}
+.text{
+    color:white;
+}
+.movie{
+    color:white;
+    border-radius: 90%;
+}

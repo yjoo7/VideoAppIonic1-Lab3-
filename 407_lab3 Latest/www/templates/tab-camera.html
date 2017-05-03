@@ -1,5 +1,5 @@
 <ion-view view-title="Camera">
-  <ion-content>
+  <ion-content class="padding">
     <br>
 
     <!-- Does not support videos remove later -->
@@ -7,13 +7,13 @@
       <div style="float:left">
         <input type="image" class="appButton" src="img/PictureButton.png" ng-click="getPicture()">
 
-          <div>Take Picture</div>
+          <div class="text">Take Picture</div>
         </input>
       </div>
       <div style="float:right">
         <input type="image" class="appButton" src="img/VideoButton.png" ng-click="getVideo()">
 
-        <div>Get Video</div>
+        <div class="text">Get Video</div>
         </input>
       </div>
     </div>
@@ -36,14 +36,14 @@
       </div>
 
 
-      <!-- please dear god I want this to work but it is not. Its not me. Even hardcoding doesn't work -->
+      <!-- Yay for functionality! -->
       <div>
-      <label> start trim at :
+      <label class="movie"> start trim at :
         <input type="number" class="centerme" name="startInput" ng-model="trimTimes.startInput" min="0"  placeholder="start time">
       </label>
     </div>
       <div>
-        <label> end trim at :
+        <label class="movie"> end trim at :
           <input type="number" class="centerme" name="endInput" ng-model="trimTimes.endInput" max = {{$scope.videoInfoJSON.duration }} placeholder="end time">
 
         </label>
