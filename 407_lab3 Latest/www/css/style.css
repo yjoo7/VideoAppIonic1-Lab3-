@@ -2,14 +2,16 @@
 body {
     background-color: aliceblue;
 }
+
 .appButton {
-    opacity: 0.8;
-    filter:alpha(opacity=50);
+    opacity: 1.0;
+    filter:alpha(opacity=100);
     width: 180px !important;
     heigth: 180px !important;
 }
-.appButton:hover{
-    opacity: 1.0;
-    filter:alpha(opactiy=100);
+.appButton:active{
+    opacity: 0.8;
+    filter:alpha(opactiy=80);
 
 }
+

@@ -3,27 +3,29 @@
     <br>
 
     <!-- Does not support videos remove later -->
-    <div class="bottom">
-      <div align="center">
-        <button ng-click="getPicture()">
-          <img class="appButton" src="img/PictureButton.png" />
+    <div class="bottom" align="center">
+      <div style="float:left">
+        <input type="image" class="appButton" src="img/PictureButton.png" ng-click="getPicture()">
+
           <div>Take Picture</div>
-        </button>
+        </input>
+      </div>
+      <div style="float:right">
+        <input type="image" class="appButton" src="img/VideoButton.png" ng-click="getVideo()">
+
+        <div>Get Video</div>
+        </input>
       </div>
     </div>
     <br>
     <br>
     <div class="bottom">
-      <div align="center">
-        <button style="float: none; width: 50%;" class="button button-royal button-large" ng-click="getVideo()">
-          Get Video
-        </button>
-      </div>
+
     </div>
     <br><br><br>
     <!-- just a picture remove later -->
     <div class="bottom">
-      <div align="center">
+      <div style="clear:both" align="center">
         <img class="col-90" ng-src="{{imageSrc}}" alt="picture" align="center">
       </div>
     </div>
