@@ -24,7 +24,9 @@ s
     color:white;
 }
 .movie{
-    align:center;
     color:white;
     border-radius: 90%;
+}
+.clickable{
+    width: 180px ;
 }
